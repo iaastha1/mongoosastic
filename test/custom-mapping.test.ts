@@ -21,7 +21,7 @@ PhoneSchema.plugin(mongoosastic, {
     data.created = new Date(phone._id.generationTime * 1000)
     return data
   },
-  customProperties: {
+  properties: {
     created: {
       type: 'date'
     }
@@ -36,6 +36,8 @@ describe('Custom Properties for Mapping', function () {
     await mongoose.connect(config.mongoUrl, config.mongoOpts)
     await Phone.deleteMany()
     await config.deleteIndexIfExists(['phones'])
+
+    await Phone.createMapping()
   })
 
   afterAll(async function () {
